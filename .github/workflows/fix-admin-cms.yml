@@ -1,0 +1,33 @@
+name: Fix Admin CMS Upload Auth
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-admin-cms.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch admin CMS Worker authentication
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('admin-cms.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const token=await user.getIdToken();const bytes=await file.arrayBuffer();const body={type,filename:file.name,mime:file.type||'application/octet-stream',content:btoa(String.fromCharCode(...new Uint8Array(bytes)))};const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(body)});"
+          new = "let workerSecret=sessionStorage.getItem('jangira_worker_secret')||'';if(!workerSecret){workerSecret=prompt('Enter your Cloudflare Worker ADMIN_SECRET');if(workerSecret)sessionStorage.setItem('jangira_worker_secret',workerSecret)};if(!workerSecret)throw Error('Worker ADMIN_SECRET is required');const bytes=await file.arrayBuffer();const body={type,filename:file.name,mime:file.type||'application/octet-stream',content:btoa(String.fromCharCode(...new Uint8Array(bytes)))};const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+workerSecret},body:JSON.stringify(body)});"
+          if old not in s:
+              raise SystemExit('Target upload code not found; no changes made.')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit CMS fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add admin-cms.html
+          git commit -m 'fix: connect admin CMS uploads to Cloudflare Worker auth' || echo 'No changes to commit'
+          git push
