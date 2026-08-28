@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Dashboard | Jangira E Mitra</title>
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<div class="admin-shell">
+<header class="admin-top">
+  <div class="admin-brand"><div class="admin-mark">JE</div><div><strong>Jangira E Mitra Admin</strong><small>Content Management Dashboard</small></div></div>
+  <div class="admin-actions"><span id="adminUser"></span><button id="logoutBtn" class="btn btn-light hidden">Logout</button></div>
+</header>
+
+<main class="admin-wrap">
+<section id="loginView" class="login-card fade-in">
+  <h1>Admin Login</h1>
+  <p class="muted">Website content manage करने के लिए login करें.</p>
+  <div class="field"><label>Email</label><input id="adminEmail" type="email" autocomplete="username" placeholder="Admin email"></div>
+  <div class="field"><label>Password</label><input id="adminPassword" type="password" autocomplete="current-password" placeholder="Password"></div>
+  <button id="loginBtn" class="btn btn-primary" style="width:100%">Login</button>
+  <div id="loginError" class="admin-error"></div>
+</section>
+
+<section id="dashboardView" class="hidden">
+  <div class="stats">
+    <div class="stat"><strong id="statTotal">0</strong><span>Total managed items</span></div>
+    <div class="stat"><strong id="statForms">0</strong><span>Forms</span></div>
+    <div class="stat"><strong id="statServices">0</strong><span>Services</span></div>
+    <div class="stat"><strong id="statLinks">0</strong><span>Online Links</span></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="overviewPanel" onclick="adminTab('overviewPanel')">Overview</button>
+    <button class="tab" data-tab="formPanel" onclick="adminTab('formPanel')">Forms</button>
+    <button class="tab" data-tab="servicePanel" onclick="adminTab('servicePanel')">Services</button>
+    <button class="tab" data-tab="linkPanel" onclick="adminTab('linkPanel')">Online Links</button>
+  </div>
+
+  <section id="overviewPanel" data-panel class="panel rise">
+    <div class="panel-head"><div><h2>Admin Control Center</h2><p class="muted">Changes Firestore में realtime save होंगे.</p></div></div>
+    <p class="muted">Forms upload करने के लिए Forms tab, services और required documents manage करने के लिए Services tab और official portals के लिए Online Links tab इस्तेमाल करें.</p>
+  </section>
+
+  <section id="formPanel" data-panel class="panel hidden fade-in">
+    <div class="panel-head"><div><h2>Forms Manager</h2><p class="muted">PDF upload, update और delete करें.</p></div></div>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Form Name</label><input id="formName" placeholder="जैसे आय प्रमाण पत्र फॉर्म"></div>
+        <div class="field"><label>Category</label><input id="formCategoryAdmin" placeholder="Certificates / Pension / Ration Card"></div>
+        <div class="field"><label>Keywords</label><input id="formKeywords" placeholder="आय, income, pension"></div>
+        <div class="field"><label>PDF File</label><input id="formPdf" type="file" accept="application/pdf,.pdf"><div class="upload-progress"><div id="uploadBar"></div></div></div>
+        <button id="formSaveBtn" class="btn btn-primary">Save / Upload Form</button>
+      </div>
+      <div id="formsAdminList"></div>
+    </div>
+  </section>
+
+  <section id="servicePanel" data-panel class="panel hidden fade-in">
+    <div class="panel-head"><div><h2>Services Manager</h2><p class="muted">Service information और document checklist manage करें.</p></div></div>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Service Name</label><input id="serviceName" placeholder="जाति प्रमाण पत्र"></div>
+        <div class="field"><label>English Name</label><input id="serviceEnglish" placeholder="Caste Certificate"></div>
+        <div class="field"><label>Category</label><input id="serviceCategory" placeholder="Certificates"></div>
+        <div class="field"><label>Description</label><textarea id="serviceDescription" rows="3"></textarea></div>
+        <div class="field"><label>Keywords</label><input id="serviceKeywords" placeholder="जाति, caste, certificate"></div>
+        <div class="field"><label>Note</label><textarea id="serviceNote" rows="2"></textarea></div>
+        <label style="font-size:13px;font-weight:700">Required Documents</label>
+        <div id="docRows"></div>
+        <button id="addDocBtn" type="button" class="btn btn-light" style="margin:8px 0">+ Document</button><br>
+        <button id="serviceSaveBtn" class="btn btn-primary">Save Service</button>
+      </div>
+      <div id="servicesAdminList"></div>
+    </div>
+  </section>
+
+  <section id="linkPanel" data-panel class="panel hidden fade-in">
+    <div class="panel-head"><div><h2>Online Services Manager</h2><p class="muted">Official portal links manage करें.</p></div></div>
+    <div class="grid">
+      <div>
+        <div class="field"><label>Name</label><input id="linkName" placeholder="Rajasthan SSO"></div>
+        <div class="field"><label>Category</label><input id="linkCategory" placeholder="Government Portal"></div>
+        <div class="field"><label>Official URL</label><input id="linkUrl" type="url" placeholder="https://..."></div>
+        <button id="linkSaveBtn" class="btn btn-primary">Save Link</button>
+      </div>
+      <div id="linksAdminList"></div>
+    </div>
+  </section>
+</section>
+</main>
+</div>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
