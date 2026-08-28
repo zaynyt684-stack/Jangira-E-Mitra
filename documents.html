@@ -1,1 +1,959 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Required Documents | Jangira E Mitra</title>
+
+    <meta name="description"
+          content="Jangira E Mitra पर विभिन्न सेवाओं के लिए आवश्यक दस्तावेज और printable checklists देखें।">
+
+    <meta name="theme-color"
+          content="#111114">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <style>
+
+        /* ================================
+           DOCUMENT PAGE
+        ================================= */
+
+        .page-hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 65px 0;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .page-hero h1 span {
+            color: var(--orange);
+        }
+
+        .page-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #BDBDBD;
+            font-size: 15px;
+        }
+
+
+        /* DOCUMENT SECTION */
+
+        .documents-section {
+            padding: 65px 0 90px;
+        }
+
+        .document-layout {
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+
+        /* SIDEBAR */
+
+        .service-selector {
+            position: sticky;
+            top: 95px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .service-selector h3 {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .service-selector select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--white);
+            color: var(--black);
+            outline: none;
+        }
+
+        .service-selector select:focus {
+            border-color: var(--orange);
+        }
+
+
+        /* SEARCH */
+
+        .service-search {
+            margin-top: 12px;
+        }
+
+        .service-search input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .service-search input:focus {
+            border-color: var(--orange);
+        }
+
+
+        /* SERVICE LIST */
+
+        .service-list {
+            margin-top: 20px;
+            display: grid;
+            gap: 7px;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .service-list button {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            text-align: left;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .service-list button:hover,
+        .service-list button.active {
+            background: #FFF1E1;
+            color: var(--black);
+        }
+
+
+        /* DOCUMENT CARD */
+
+        .document-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .document-header {
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .document-category {
+            display: inline-block;
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .document-header h2 {
+            font-size: clamp(25px, 4vw, 36px);
+            line-height: 1.25;
+        }
+
+        .english-name {
+            color: var(--gray);
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .document-description {
+            color: #555;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+
+        /* CHECKLIST */
+
+        .checklist-title {
+            margin-top: 28px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .checklist {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 15px;
+            background: var(--light);
+            border: 1px solid #EEEEEE;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .check-icon {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--black);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+
+        /* NOTE */
+
+        .document-note {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 3px solid var(--orange);
+            background: #FFF7ED;
+            color: #555;
+            font-size: 13px;
+        }
+
+
+        /* BUTTONS */
+
+        .document-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 28px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        .document-actions .btn {
+            cursor: pointer;
+            border: 0;
+        }
+
+        .btn-dark {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-dark:hover {
+            background: #252529;
+        }
+
+
+        /* EMPTY */
+
+        .empty-state {
+            text-align: center;
+            padding: 70px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state h2 {
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+
+        /* PRINT */
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            .site-header,
+            .page-hero,
+            .service-selector,
+            .document-actions,
+            .site-footer {
+                display: none !important;
+            }
+
+            .documents-section {
+                padding: 0;
+            }
+
+            .document-layout {
+                display: block;
+            }
+
+            .document-card {
+                border: 0;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .checklist li {
+                background: white;
+                border: 1px solid #ddd;
+            }
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .document-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .service-selector {
+                position: static;
+            }
+
+            .service-list {
+                max-height: 260px;
+            }
+
+            .document-card {
+                padding: 22px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .page-hero {
+                padding: 50px 0;
+            }
+
+            .documents-section {
+                padding: 45px 0 65px;
+            }
+
+            .document-actions {
+                flex-direction: column;
+            }
+
+            .document-actions .btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-mark">
+                JE
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    Jangira E Mitra
+                </strong>
+
+                <span>
+                    Phalodi • Rajasthan
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <nav class="desktop-nav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="services.html">
+                Services
+            </a>
+
+            <a href="documents.html"
+               class="active">
+                Documents
+            </a>
+
+            <a href="forms.html">
+                Forms
+            </a>
+
+            <a href="links.html">
+                Online Services
+            </a>
+
+            <a href="downloads.html">
+                Downloads
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <button class="menu-btn"
+                id="menuBtn"
+                aria-label="Open Menu">
+
+            ☰
+
+        </button>
+
+    </div>
+
+
+    <div class="mobile-menu"
+         id="mobileMenu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="services.html">
+            Services
+        </a>
+
+        <a href="documents.html">
+            Documents
+        </a>
+
+        <a href="forms.html">
+            Forms
+        </a>
+
+        <a href="links.html">
+            Online Services
+        </a>
+
+        <a href="downloads.html">
+            Downloads
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================
+     PAGE HERO
+========================================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <span class="section-label">
+            DOCUMENT CHECKLIST
+        </span>
+
+        <h1>
+            आवश्यक <span>दस्तावेज</span>
+        </h1>
+
+        <p>
+            अपनी सेवा चुनें और आवेदन से पहले
+            आवश्यक documents की पूरी checklist देखें।
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     DOCUMENT CONTENT
+========================================= -->
+
+<main class="documents-section">
+
+    <div class="container">
+
+        <div class="document-layout">
+
+
+            <!-- SIDEBAR -->
+
+            <aside class="service-selector">
+
+                <h3>
+                    सेवा चुनें
+                </h3>
+
+
+                <select id="serviceSelect">
+
+                    <option value="">
+                        -- सेवा चुनें --
+                    </option>
+
+                </select>
+
+
+                <div class="service-search">
+
+                    <input
+                        type="search"
+                        id="documentSearch"
+                        placeholder="सेवा खोजें..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div
+                    class="service-list"
+                    id="serviceList"
+                ></div>
+
+            </aside>
+
+
+            <!-- DOCUMENT AREA -->
+
+            <section id="documentContent">
+
+                <div class="document-card empty-state">
+
+                    <h2>
+                        सेवा चुनें
+                    </h2>
+
+                    <p>
+                        बाईं तरफ से कोई service select करें
+                        और उसके required documents देखें।
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+  <!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <div class="footer-brand">
+
+                <div class="brand">
+
+                    <div class="brand-mark">
+                        JE
+                    </div>
+
+                    <div class="brand-text">
+
+                        <strong>
+                            Jangira E Mitra
+                        </strong>
+
+                        <span>
+                            Phalodi • Rajasthan
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p>
+                    FROM RAJASTHAN • PHALODI • HINDALGOAL PANCHAYAT
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="services.html">
+                    Services
+                </a>
+
+                <a href="documents.html">
+                    Documents
+                </a>
+
+                <a href="forms.html">
+                    Forms
+                </a>
+
+                <a href="links.html">
+                    Online Services
+                </a>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Resources
+                </h3>
+
+                <a href="downloads.html">
+                    Downloads
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+                <a href="documents.html">
+                    Checklists
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Jangira E Mitra. All rights reserved.
+            </span>
+
+            <span>
+                Independent e-Mitra / cyber cafe service center.
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script src="js/services.js"></script>
+
+<script src="js/app.js"></script>
+
+<script src="js/document.js"></script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* ================================
+           ELEMENTS
+        ================================= */
+
+        const serviceSelect =
+            document.getElementById(
+                "serviceSelect"
+            );
+
+        const serviceList =
+            document.getElementById(
+                "serviceList"
+            );
+
+        const documentSearch =
+            document.getElementById(
+                "documentSearch"
+            );
+
+
+        /* ================================
+           ADD SERVICES TO SELECT
+        ================================= */
+
+        services.forEach(function (service) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                service.id;
+
+            option.textContent =
+                service.name;
+
+            serviceSelect.appendChild(
+                option
+            );
+
+        });
+
+
+        /* ================================
+           SERVICE LIST
+        ================================= */
+
+        function renderServiceList(
+            serviceArray
+        ) {
+
+            serviceList.innerHTML = "";
+
+
+            serviceArray.forEach(
+                function (service) {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+                    button.type = "button";
+
+                    button.dataset.id =
+                        service.id;
+
+                    button.textContent =
+                        service.name;
+
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            loadService(
+                                service.id
+                            );
+
+                        }
+                    );
+
+
+                    serviceList.appendChild(
+                        button
+                    );
+
+                }
+            );
+
+
+            updateActiveService();
+
+        }
+
+
+        /* ================================
+           ACTIVE SERVICE
+        ================================= */
+
+        function updateActiveService() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            const currentId =
+                params.get("service");
+
+
+            document
+                .querySelectorAll(
+                    "#serviceList button"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.classList.toggle(
+                            "active",
+                            button.dataset.id ===
+                            currentId
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* ================================
+           SERVICE SEARCH
+        ================================= */
+
+        documentSearch.addEventListener(
+            "input",
+            function () {
+
+                const query =
+                    documentSearch.value
+                        .toLowerCase()
+                        .trim();
+
+
+                if (!query) {
+
+                    renderServiceList(
+                        services
+                    );
+
+                    return;
+
+                }
+
+
+                const filtered =
+                    services.filter(
+                        function (service) {
+
+                            const searchText = [
+
+                                service.name,
+
+                                service.englishName,
+
+                                service.category,
+
+                                ...(service.keywords || [])
+
+                            ]
+                                .join(" ")
+                                .toLowerCase();
+
+
+                            return searchText.includes(
+                                query
+                            );
+
+                        }
+                    );
+
+
+                renderServiceList(
+                    filtered
+                );
+
+            }
+        );
+
+
+        /* ================================
+           DROPDOWN CHANGE
+        ================================= */
+
+        serviceSelect.addEventListener(
+            "change",
+            function () {
+
+                const id =
+                    serviceSelect.value;
+
+
+                if (!id) {
+                    return;
+                }
+
+
+                loadService(id);
+
+            }
+        );
+
+
+        /* ================================
+           INITIAL SERVICE LIST
+        ================================= */
+
+        renderServiceList(
+            services
+        );
+
+
+        /* ================================
+           URL SERVICE
+        ================================= */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const requestedService =
+            params.get("service");
+
+
+        if (requestedService) {
+
+            loadService(
+                requestedService
+            );
+
+        }
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
