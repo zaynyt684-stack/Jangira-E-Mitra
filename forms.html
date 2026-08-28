@@ -11,7 +11,7 @@
     <title>Forms | Jangira E Mitra</title>
 
     <meta name="description"
-          content="Jangira E Mitra पर विभिन्न सेवाओं के आवेदन फॉर्म देखें, डाउनलोड करें और प्रिंट करें।">
+          content="Jangira E Mitra पर विभिन्न सरकारी सेवाओं के आवेदन और शपथ पत्र के PDF Forms डाउनलोड करें।">
 
     <meta name="theme-color"
           content="#111114">
@@ -23,7 +23,7 @@
     <style>
 
         /* =================================
-           FORMS PAGE
+           PAGE HERO
         ================================= */
 
         .page-hero {
@@ -36,7 +36,7 @@
         .page-hero h1 {
             font-size: clamp(32px, 5vw, 52px);
             line-height: 1.2;
-            margin-bottom: 12px;
+            margin: 12px 0;
         }
 
         .page-hero h1 span {
@@ -44,7 +44,7 @@
         }
 
         .page-hero p {
-            max-width: 650px;
+            max-width: 680px;
             margin: auto;
             color: #BDBDBD;
             font-size: 15px;
@@ -61,82 +61,68 @@
 
 
         /* =================================
-           FILTER
+           FILTER AREA
         ================================= */
 
         .forms-filter {
             display: grid;
             grid-template-columns: 1fr 220px;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 35px;
         }
-
 
         .search-box {
             display: flex;
             gap: 10px;
         }
 
-
-        .forms-filter input,
-        .forms-filter select {
-
-            width: 100%;
-
-            padding: 14px 16px;
-
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            background: var(--white);
-
-            color: var(--black);
-
-            outline: none;
-
-            font-size: 14px;
-
-        }
-
-
         .search-box input {
             flex: 1;
+            min-width: 0;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            background: var(--white);
+            color: var(--black);
+            font-size: 14px;
         }
 
-
-        .forms-filter input:focus,
-        .forms-filter select:focus {
-
+        .search-box input:focus {
             border-color: var(--orange);
-
         }
-
 
         .search-box .btn {
-
             border: 0;
-
             cursor: pointer;
-
             white-space: nowrap;
+        }
 
+        .forms-filter select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            background: var(--white);
+            color: var(--black);
+            font-size: 14px;
+        }
+
+        .forms-filter select:focus {
+            border-color: var(--orange);
         }
 
 
         /* =================================
-           FORMS GRID
+           FORM GRID
         ================================= */
 
         .forms-grid {
-
             display: grid;
-
             grid-template-columns:
                 repeat(3, minmax(0, 1fr));
-
             gap: 20px;
-
         }
 
 
@@ -145,168 +131,86 @@
         ================================= */
 
         .form-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
             background: var(--white);
-
             border: 1px solid var(--border);
-
             border-radius: 16px;
-
             padding: 24px;
 
             box-shadow: var(--shadow);
 
             transition:
                 transform 0.2s ease,
-                box-shadow 0.2s ease;
-
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
         }
-
 
         .form-card:hover {
-
             transform: translateY(-3px);
-
-        }
-
-
-        .form-icon {
-
-            width: 48px;
-            height: 48px;
-
-            display: grid;
-
-            place-items: center;
-
-            background: #FFF1E1;
-
-            border-radius: 12px;
-
-            font-size: 23px;
-
-            margin-bottom: 16px;
-
+            border-color: var(--orange);
         }
 
 
         .form-category {
-
             display: inline-block;
-
             color: var(--orange);
-
-            font-size: 11px;
-
-            font-weight: 800;
-
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
             text-transform: uppercase;
-
-            letter-spacing: 0.8px;
-
-            margin-bottom: 8px;
-
+            margin-bottom: 10px;
         }
 
 
         .form-card h3 {
-
-            font-size: 19px;
-
+            font-size: 18px;
             line-height: 1.4;
-
-            margin-bottom: 9px;
-
-            color: var(--black);
-
+            margin-bottom: 7px;
         }
 
 
-        .form-card p {
-
+        .form-english {
             color: var(--gray);
-
-            font-size: 13px;
-
-            line-height: 1.6;
-
-            min-height: 42px;
-
-            margin-bottom: 18px;
-
+            font-size: 12px;
+            line-height: 1.5;
         }
 
 
         /* =================================
-           ACTION BUTTONS
+           FORM ACTIONS
         ================================= */
 
         .form-actions {
-
             display: flex;
-
-            flex-wrap: wrap;
-
             gap: 9px;
-
+            margin-top: 25px;
         }
-
 
         .form-actions .btn {
-
             flex: 1;
-
-            text-align: center;
-
+            border: 0;
             cursor: pointer;
-
+            text-align: center;
         }
-
 
         .btn-dark {
-
             background: var(--black);
-
             color: var(--white);
-
-            border: 0;
-
         }
-
 
         .btn-dark:hover {
-
             background: #252529;
-
-        }
-
-
-        .btn-outline {
-
-            background: var(--white);
-
-            color: var(--black);
-
-            border: 1px solid var(--border);
-
-        }
-
-
-        .btn-outline:hover {
-
-            border-color: var(--orange);
-
-            color: var(--orange);
-
         }
 
 
         /* =================================
-           EMPTY
+           EMPTY STATE
         ================================= */
 
         .forms-empty {
-
             grid-column: 1 / -1;
 
             text-align: center;
@@ -314,29 +218,20 @@
             padding: 70px 20px;
 
             background: var(--white);
-
             border: 1px solid var(--border);
-
             border-radius: 16px;
 
+            box-shadow: var(--shadow);
         }
-
 
         .forms-empty h2 {
-
             margin-bottom: 8px;
-
             color: var(--black);
-
         }
 
-
         .forms-empty p {
-
             color: var(--gray);
-
             font-size: 14px;
-
         }
 
 
@@ -347,10 +242,8 @@
         @media (max-width: 900px) {
 
             .forms-grid {
-
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
-
             }
 
         }
@@ -359,44 +252,31 @@
         @media (max-width: 650px) {
 
             .page-hero {
-
                 padding: 50px 0;
-
             }
-
 
             .forms-section {
-
                 padding: 45px 0 65px;
-
             }
-
 
             .forms-filter {
-
                 grid-template-columns: 1fr;
-
             }
-
 
             .search-box {
-
                 flex-direction: column;
-
             }
-
 
             .search-box .btn {
-
                 width: 100%;
-
             }
 
-
             .forms-grid {
-
                 grid-template-columns: 1fr;
+            }
 
+            .form-card {
+                padding: 21px;
             }
 
         }
@@ -412,39 +292,24 @@
             .page-hero,
             .forms-filter,
             .site-footer {
-
                 display: none !important;
-
             }
-
 
             .forms-section {
-
                 padding: 0;
-
             }
-
 
             .forms-grid {
-
                 grid-template-columns: 1fr 1fr;
-
             }
-
 
             .form-actions {
-
                 display: none;
-
             }
 
-
             .form-card {
-
                 box-shadow: none;
-
                 break-inside: avoid;
-
             }
 
         }
@@ -465,14 +330,12 @@
 
     <div class="container header-inner">
 
-
         <a href="index.html"
            class="brand">
 
             <div class="brand-mark">
                 JE
             </div>
-
 
             <div class="brand-text">
 
@@ -535,9 +398,8 @@
     </div>
 
 
-    <div
-        class="mobile-menu"
-        id="mobileMenu">
+    <div class="mobile-menu"
+         id="mobileMenu">
 
         <a href="index.html">
             Home
@@ -572,8 +434,9 @@
 </header>
 
 
+
 <!-- =================================
-     HERO
+     PAGE HERO
 ================================= -->
 
 <section class="page-hero">
@@ -581,18 +444,16 @@
     <div class="container">
 
         <span class="section-label">
-            OFFLINE FORMS
+            DOWNLOAD FORMS
         </span>
 
-
         <h1>
-            आवेदन <span>फॉर्म</span>
+            जरूरी <span>Forms</span>
         </h1>
 
-
         <p>
-            उपलब्ध आवेदन फॉर्म देखें, डाउनलोड करें
-            और जरूरत के अनुसार प्रिंट करें।
+            सरकारी सेवाओं के आवेदन फॉर्म और
+            शपथ पत्र आसानी से खोजें, खोलें और डाउनलोड करें।
         </p>
 
     </div>
@@ -600,8 +461,9 @@
 </section>
 
 
+
 <!-- =================================
-     FORMS SECTION
+     FORMS
 ================================= -->
 
 <main class="forms-section">
@@ -609,7 +471,7 @@
     <div class="container">
 
 
-        <!-- SEARCH + CATEGORY -->
+        <!-- FILTER -->
 
         <div class="forms-filter">
 
@@ -619,15 +481,14 @@
                 <input
                     type="search"
                     id="formSearch"
-                    placeholder="Form खोजें..."
+                    placeholder="फॉर्म खोजें... जैसे राशन, जाति, पेंशन"
                     autocomplete="off"
                 >
 
-
                 <button
                     type="button"
-                    id="formSearchBtn"
-                    class="btn btn-dark">
+                    class="btn btn-dark"
+                    id="formSearchBtn">
 
                     Search
 
@@ -650,16 +511,12 @@
                     Pension
                 </option>
 
-                <option value="Rajasthan Services">
-                    Rajasthan Services
-                </option>
-
                 <option value="Ration Card">
                     Ration Card
                 </option>
 
-                <option value="Other">
-                    Other
+                <option value="Rajasthan Services">
+                    Rajasthan Services
                 </option>
 
             </select>
@@ -667,11 +524,24 @@
         </div>
 
 
-        <!-- FORMS -->
+
+        <!-- FORM GRID -->
 
         <div
             class="forms-grid"
             id="formsGrid">
+
+            <div class="forms-empty">
+
+                <h2>
+                    Forms load हो रहे हैं...
+                </h2>
+
+                <p>
+                    कृपया कुछ सेकंड प्रतीक्षा करें।
+                </p>
+
+            </div>
 
         </div>
 
@@ -679,6 +549,7 @@
     </div>
 
 </main>
+
 
 
 <!-- =================================
@@ -700,7 +571,6 @@
                         JE
                     </div>
 
-
                     <div class="brand-text">
 
                         <strong>
@@ -721,6 +591,7 @@
                 </p>
 
             </div>
+
 
 
             <div class="footer-links">
@@ -746,6 +617,7 @@
                 </a>
 
             </div>
+
 
 
             <div class="footer-links">
@@ -778,7 +650,6 @@
                 © 2026 Jangira E Mitra. All rights reserved.
             </span>
 
-
             <span>
                 Independent e-Mitra / cyber cafe service center.
             </span>
@@ -788,6 +659,7 @@
     </div>
 
 </footer>
+
 
 
 <!-- =================================
