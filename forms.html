@@ -11,7 +11,7 @@
     <title>Forms | Jangira E Mitra</title>
 
     <meta name="description"
-          content="Jangira E Mitra पर विभिन्न सरकारी सेवाओं के आवेदन फॉर्म देखें, डाउनलोड करें और प्रिंट करें।">
+          content="Jangira E Mitra पर विभिन्न सेवाओं के आवेदन फॉर्म देखें, डाउनलोड करें और प्रिंट करें।">
 
     <meta name="theme-color"
           content="#111114">
@@ -61,7 +61,7 @@
 
 
         /* =================================
-           FILTER BAR
+           FILTER
         ================================= */
 
         .forms-filter {
@@ -71,26 +71,56 @@
             margin-bottom: 30px;
         }
 
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+
         .forms-filter input,
         .forms-filter select {
 
             width: 100%;
+
             padding: 14px 16px;
 
             border: 1px solid var(--border);
+
             border-radius: 10px;
 
             background: var(--white);
+
             color: var(--black);
 
             outline: none;
+
             font-size: 14px;
 
         }
 
+
+        .search-box input {
+            flex: 1;
+        }
+
+
         .forms-filter input:focus,
         .forms-filter select:focus {
+
             border-color: var(--orange);
+
+        }
+
+
+        .search-box .btn {
+
+            border: 0;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
         }
 
 
@@ -132,6 +162,7 @@
 
         }
 
+
         .form-card:hover {
 
             transform: translateY(-3px);
@@ -145,6 +176,7 @@
             height: 48px;
 
             display: grid;
+
             place-items: center;
 
             background: #FFF1E1;
@@ -206,7 +238,7 @@
 
 
         /* =================================
-           BUTTONS
+           ACTION BUTTONS
         ================================= */
 
         .form-actions {
@@ -219,6 +251,7 @@
 
         }
 
+
         .form-actions .btn {
 
             flex: 1;
@@ -229,19 +262,24 @@
 
         }
 
+
         .btn-dark {
 
             background: var(--black);
 
             color: var(--white);
 
+            border: 0;
+
         }
+
 
         .btn-dark:hover {
 
             background: #252529;
 
         }
+
 
         .btn-outline {
 
@@ -253,6 +291,7 @@
 
         }
 
+
         .btn-outline:hover {
 
             border-color: var(--orange);
@@ -263,7 +302,7 @@
 
 
         /* =================================
-           EMPTY STATE
+           EMPTY
         ================================= */
 
         .forms-empty {
@@ -282,6 +321,7 @@
 
         }
 
+
         .forms-empty h2 {
 
             margin-bottom: 8px;
@@ -289,6 +329,7 @@
             color: var(--black);
 
         }
+
 
         .forms-empty p {
 
@@ -323,17 +364,34 @@
 
             }
 
+
             .forms-section {
 
                 padding: 45px 0 65px;
 
             }
 
+
             .forms-filter {
 
                 grid-template-columns: 1fr;
 
             }
+
+
+            .search-box {
+
+                flex-direction: column;
+
+            }
+
+
+            .search-box .btn {
+
+                width: 100%;
+
+            }
+
 
             .forms-grid {
 
@@ -359,11 +417,13 @@
 
             }
 
+
             .forms-section {
 
                 padding: 0;
 
             }
+
 
             .forms-grid {
 
@@ -371,11 +431,13 @@
 
             }
 
+
             .form-actions {
 
                 display: none;
 
             }
+
 
             .form-card {
 
@@ -403,11 +465,14 @@
 
     <div class="container header-inner">
 
-        <a href="index.html" class="brand">
+
+        <a href="index.html"
+           class="brand">
 
             <div class="brand-mark">
                 JE
             </div>
+
 
             <div class="brand-text">
 
@@ -519,9 +584,11 @@
             OFFLINE FORMS
         </span>
 
+
         <h1>
             आवेदन <span>फॉर्म</span>
         </h1>
+
 
         <p>
             उपलब्ध आवेदन फॉर्म देखें, डाउनलोड करें
@@ -534,7 +601,7 @@
 
 
 <!-- =================================
-     FORMS
+     FORMS SECTION
 ================================= -->
 
 <main class="forms-section">
@@ -542,16 +609,31 @@
     <div class="container">
 
 
-        <!-- FILTER -->
+        <!-- SEARCH + CATEGORY -->
 
         <div class="forms-filter">
 
-            <input
-                type="search"
-                id="formSearch"
-                placeholder="Form खोजें..."
-                autocomplete="off"
-            >
+
+            <div class="search-box">
+
+                <input
+                    type="search"
+                    id="formSearch"
+                    placeholder="Form खोजें..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    type="button"
+                    id="formSearchBtn"
+                    class="btn btn-dark">
+
+                    Search
+
+                </button>
+
+            </div>
 
 
             <select id="formCategory">
@@ -585,13 +667,11 @@
         </div>
 
 
-        <!-- FORMS GRID -->
+        <!-- FORMS -->
 
         <div
             class="forms-grid"
             id="formsGrid">
-
-            <!-- forms.js यहाँ cards बनाएगा -->
 
         </div>
 
@@ -619,6 +699,7 @@
                     <div class="brand-mark">
                         JE
                     </div>
+
 
                     <div class="brand-text">
 
@@ -696,6 +777,7 @@
             <span>
                 © 2026 Jangira E Mitra. All rights reserved.
             </span>
+
 
             <span>
                 Independent e-Mitra / cyber cafe service center.
