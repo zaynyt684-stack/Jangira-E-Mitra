@@ -4,17 +4,15 @@ import { collection, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp } from 
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
 const ADMIN_EMAIL = "zaynyt684@gmail.com";
-
 const state = { forms: [], services: [], links: [] };
-const $ = (id) => document.getElementById(id);
-
+const $ = id => document.getElementById(id);
 function esc(v){return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;");}
 function toast(message){const old=document.querySelector(".toast");if(old)old.remove();const el=document.createElement("div");el.className="toast";el.textContent=message;document.body.appendChild(el);setTimeout(()=>el.remove(),3000);}
 function slug(text){return String(text||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,70)||Date.now().toString();}
 function csvList(text){return String(text||"").split(",").map(x=>x.trim()).filter(Boolean);}
 function show(id){document.querySelectorAll("[data-panel]").forEach(x=>x.classList.add("hidden"));$(id)?.classList.remove("hidden");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelector(`[data-tab="${id}"]`)?.classList.add("active");}
 window.adminTab=show;
-function updateStats(){$("statForms").textContent=state.forms.length;$.call(null);$("statServices").textContent=state.services.length;$("statLinks").textContent=state.links.length;$("statTotal").textContent=state.forms.length+state.services.length+state.links.length;}
+function updateStats(){$("statForms").textContent=state.forms.length;$ ("statServices").textContent=state.services.length;$ ("statLinks").textContent=state.links.length;$ ("statTotal").textContent=state.forms.length+state.services.length+state.links.length;}
 function renderForms(){const box=$("formsAdminList");if(!box)return;box.innerHTML=state.forms.length?state.forms.map((f,i)=>`<div class="item rise" style="animation-delay:${Math.min(i,10)*35}ms"><div><h3>${esc(f.name)}</h3><p>${esc(f.category||"")}</p><span class="status">PDF ready</span></div><div class="admin-actions"><a class="btn btn-light" target="_blank" rel="noopener" href="${esc(f.fileUrl)}">Open</a><button class="btn btn-danger" data-delete-form="${esc(f.id)}">Delete</button></div></div>`).join(""):"<div class='empty'>अभी कोई Firebase form नहीं है।</div>";}
 function renderServices(){const box=$("servicesAdminList");if(!box)return;box.innerHTML=state.services.length?state.services.map((s,i)=>`<div class="item rise" style="animation-delay:${Math.min(i,10)*35}ms"><div><h3>${esc(s.name)}</h3><p>${esc(s.category||"")} · ${esc(s.documents?.length||0)} documents</p></div><div class="admin-actions"><button class="btn btn-light" data-edit-service="${esc(s.id)}">Edit</button><button class="btn btn-danger" data-delete-service="${esc(s.id)}">Delete</button></div></div>`).join(""):"<div class='empty'>अभी कोई Firebase service नहीं है।</div>";}
 function renderLinks(){const box=$("linksAdminList");if(!box)return;box.innerHTML=state.links.length?state.links.map((l,i)=>`<div class="item rise" style="animation-delay:${Math.min(i,10)*35}ms"><div><h3>${esc(l.name)}</h3><p>${esc(l.category||"")}</p></div><div class="admin-actions"><a class="btn btn-light" target="_blank" rel="noopener" href="${esc(l.url)}">Open</a><button class="btn btn-danger" data-delete-link="${esc(l.id)}">Delete</button></div></div>`).join(""):"<div class='empty'>अभी कोई online link नहीं है।</div>";}
