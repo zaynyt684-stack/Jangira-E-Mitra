@@ -1,13 +1,10 @@
 /* =========================================
    JANGIRA E MITRA - FIREBASE CONFIG
-   Public Firebase web config is safe to ship.
-   Security is enforced by Firebase Auth + Rules.
-========================================= */
+   ========================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBFkTebmxTpNnInrvYX-ffuUzQgUbRQlGw",
@@ -22,6 +19,5 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
-const storage = getStorage(firebaseApp);
 
-export { firebaseApp, auth, db, storage };
+export { firebaseApp, auth, db };
