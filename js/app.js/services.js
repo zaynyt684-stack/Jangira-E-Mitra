@@ -1,32 +1,34 @@
 /*
 ========================================
 JANGIRA E MITRA
-SERVICE DATABASE
+SERVICES MASTER DATA
+PART 1 / 2
 ========================================
-
-यह file सभी services और उनके required
-documents को manage करती है।
-
-नई service जोड़ने या existing service
-update करने के लिए मुख्यतः इसी file को edit करें.
 */
 
 const services = [
+
+    /* ===================================
+       1. जाति प्रमाण पत्र
+    =================================== */
 
     {
         id: "caste",
         name: "जाति प्रमाण पत्र",
         englishName: "Caste Certificate",
         category: "Certificates",
-        keywords: [
-            "जाति",
-            "जाति प्रमाण पत्र",
-            "caste",
-            "caste certificate"
-        ],
 
         description:
-            "जाति प्रमाण पत्र के लिए आवश्यक दस्तावेज और आवेदन की जानकारी।",
+            "जाति प्रमाण पत्र के लिए आवश्यक दस्तावेजों की पूरी checklist।",
+
+        keywords: [
+            "जाति",
+            "caste",
+            "caste certificate",
+            "sc",
+            "st",
+            "obc"
+        ],
 
         documents: [
             "खुद का आधार कार्ड",
@@ -38,13 +40,20 @@ const services = [
             "जन आधार से मोबाइल OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: true,
+        note:
+            "आवेदन करने से पहले सभी आवश्यक दस्तावेज साथ लेकर आएं।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
+
+    /* ===================================
+       2. मूल निवास प्रमाण पत्र
+    =================================== */
 
     {
         id: "domicile",
@@ -52,16 +61,16 @@ const services = [
         englishName: "Domicile Certificate",
         category: "Certificates",
 
+        description:
+            "मूल निवास प्रमाण पत्र के लिए आवश्यक दस्तावेजों की checklist।",
+
         keywords: [
             "मूल निवास",
             "निवास",
             "domicile",
             "residence",
-            "residence certificate"
+            "mool niwas"
         ],
-
-        description:
-            "मूल निवास प्रमाण पत्र के लिए आवश्यक दस्तावेज।",
 
         documents: [
             "खुद का आधार कार्ड",
@@ -74,29 +83,36 @@ const services = [
             "जन आधार से मोबाइल OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: true,
+        note:
+            "यदि 10 साल पुराना Voter ID और पुराना मूल निवास दोनों उपलब्ध हों तो दोनों साथ लेकर आएं।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       3. जन्म प्रमाण पत्र
+    =================================== */
+
     {
-        id: "birth",
+        id: "birth-certificate",
         name: "जन्म प्रमाण पत्र",
         englishName: "Birth Certificate",
         category: "Certificates",
 
-        keywords: [
-            "जन्म",
-            "जन्म प्रमाण पत्र",
-            "birth",
-            "birth certificate"
-        ],
-
         description:
             "1 वर्ष से अधिक पुराने जन्म प्रमाण पत्र के लिए आवश्यक दस्तावेज।",
+
+        keywords: [
+            "जन्म",
+            "birth",
+            "birth certificate",
+            "जन्म प्रमाण पत्र"
+        ],
 
         documents: [
             "खुद का आधार कार्ड",
@@ -110,30 +126,37 @@ const services = [
             "माता-पिता दोनों के आधार कार्ड"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: true,
+        note:
+            "यह checklist 1 वर्ष से अधिक पुराने जन्म प्रमाण पत्र के लिए है।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       4. विवाह प्रमाण पत्र
+    =================================== */
+
     {
-        id: "marriage",
+        id: "marriage-certificate",
         name: "विवाह प्रमाण पत्र",
         englishName: "Marriage Certificate",
         category: "Certificates",
 
+        description:
+            "विवाह प्रमाण पत्र के लिए पति-पत्नी, माता-पिता और गवाहों से संबंधित आवश्यक दस्तावेज।",
+
         keywords: [
             "विवाह",
             "शादी",
-            "विवाह प्रमाण पत्र",
             "marriage",
-            "marriage certificate"
+            "marriage certificate",
+            "निकाह"
         ],
-
-        description:
-            "विवाह प्रमाण पत्र के लिए आवश्यक दस्तावेज।",
 
         documents: [
             "पति-पत्नी दोनों के आधार कार्ड",
@@ -146,29 +169,37 @@ const services = [
             "पति-पत्नी के Signature / Thumb"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: true,
+        note:
+            "आवेदन से पहले पति-पत्नी और संबंधित गवाहों के आवश्यक documents साथ लेकर आएं।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       5. जन आधार बनाना
+    =================================== */
+
     {
         id: "jan-aadhaar",
         name: "जन आधार बनाना",
-        englishName: "Jan Aadhaar",
+        englishName: "Jan Aadhaar Enrollment",
         category: "Rajasthan Services",
+
+        description:
+            "नया जन आधार बनाने के लिए आवश्यक दस्तावेज और जानकारी।",
 
         keywords: [
             "जन आधार",
-            "janaadhaar",
             "jan aadhaar",
-            "janadhar"
+            "janaadhaar",
+            "janadhar",
+            "नया जन आधार"
         ],
-
-        description:
-            "नया जन आधार बनाने के लिए आवश्यक दस्तावेज।",
 
         documents: [
             "Marriage Certificate",
@@ -177,19 +208,29 @@ const services = [
             "Mobile OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: false,
+        note:
+            "आवेदन के समय आवश्यक documents और मोबाइल OTP उपलब्ध रखें।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       6. PAN CARD
+    =================================== */
+
     {
-        id: "pan",
+        id: "pan-card",
         name: "PAN Card",
         englishName: "Permanent Account Number",
         category: "Government IDs",
+
+        description:
+            "PAN Card आवेदन के लिए आवश्यक documents और जानकारी।",
 
         keywords: [
             "pan",
@@ -198,9 +239,6 @@ const services = [
             "पैन कार्ड"
         ],
 
-        description:
-            "PAN Card के लिए आवश्यक दस्तावेज।",
-
         documents: [
             "खुद का आधार कार्ड",
             "पिता का आधार कार्ड या पिता का नाम",
@@ -208,30 +246,38 @@ const services = [
             "Date of Birth Proof: Birth Certificate, Voter ID आदि"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: false,
+        note:
+            "आवेदन से पहले Date of Birth proof और आधार से लिंक मोबाइल नंबर उपलब्ध रखें।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       7. VOTER ID
+    =================================== */
+
     {
-        id: "voter",
-        name: "Voter ID Card",
-        englishName: "Voter ID",
+        id: "voter-id",
+        name: "वोटर ID कार्ड",
+        englishName: "Voter ID Card",
         category: "Government IDs",
+
+        description:
+            "वोटर ID कार्ड के लिए आवश्यक documents और OTP verification।",
 
         keywords: [
             "voter",
             "voter id",
             "voter card",
             "वोटर",
-            "वोटर आईडी"
+            "वोटर आईडी",
+            "मतदाता पहचान पत्र"
         ],
-
-        description:
-            "Voter ID Card के लिए आवश्यक दस्तावेज।",
 
         documents: [
             "आधार कार्ड",
@@ -243,29 +289,36 @@ const services = [
             "दिए गए मोबाइल नंबर पर OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: false,
+        note:
+            "OTP verification के लिए मोबाइल नंबर उपलब्ध होना आवश्यक है।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       8. आय प्रमाण पत्र
+    =================================== */
+
     {
-        id: "income",
+        id: "income-certificate",
         name: "आय प्रमाण पत्र",
         englishName: "Income Certificate",
         category: "Certificates",
 
+        description:
+            "आय प्रमाण पत्र के लिए आवश्यक documents और OTP verification।",
+
         keywords: [
             "आय",
-            "आय प्रमाण पत्र",
             "income",
-            "income certificate"
+            "income certificate",
+            "आय प्रमाण पत्र"
         ],
-
-        description:
-            "आय प्रमाण पत्र के लिए आवश्यक दस्तावेज।",
 
         documents: [
             "आधार कार्ड",
@@ -275,29 +328,37 @@ const services = [
             "आधार से लिंक मोबाइल नंबर पर OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: true,
+        note:
+            "आवेदन के समय आधार से लिंक मोबाइल नंबर उपलब्ध रखें।",
 
+        onlineAvailable: false,
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
 
+    /* ===================================
+       9. ई-श्रम कार्ड
+    =================================== */
+
     {
-        id: "eshram",
+        id: "e-shram",
         name: "ई-श्रम कार्ड",
         englishName: "e-Shram Card",
         category: "Digital Services",
 
-        keywords: [
-            "ई-श्रम",
-            "e shram",
-            "eshram",
-            "e-shram"
-        ],
-
         description:
-            "ई-श्रम कार्ड के लिए आवश्यक दस्तावेज।",
+            "ई-श्रम कार्ड बनाने के लिए आवश्यक documents और OTP verification।",
+
+        keywords: [
+            "e shram",
+            "e-shram",
+            "ई श्रम",
+            "ई-श्रम",
+            "shram card"
+        ],
 
         documents: [
             "आधार कार्ड",
@@ -307,365 +368,450 @@ const services = [
             "आधार से लिंक मोबाइल नंबर पर OTP"
         ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: false,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
-
-
-    {
-        id: "ayushman",
-        name: "आयुष्मान कार्ड",
-        englishName: "Ayushman Card",
-        category: "Government Services",
-
-        keywords: [
-            "आयुष्मान",
-            "ayushman",
-            "ayushman card"
-        ],
-
-        description:
-            "आयुष्मान कार्ड बनाने के लिए आवश्यक दस्तावेज।",
-
-        documents: [
-            "आधार कार्ड",
-            "जन आधार",
-            "Passport Size Photo",
-            "आधार से लिंक मोबाइल नंबर पर OTP",
-            "Face Authentication"
-        ],
-
-        onlineAvailable: true,
-        offlineFormAvailable: false,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
-
-
-    {
-        id: "ration",
-        name: "नया राशन कार्ड",
-        englishName: "New Ration Card",
-        category: "Rajasthan Services",
-
-        keywords: [
-            "राशन",
-            "राशन कार्ड",
-            "ration",
-            "ration card",
-            "new ration card"
-        ],
-
-        description:
-            "नया राशन कार्ड बनाने के लिए आवश्यक दस्तावेज।",
-
-        documents: [
-            "आधार कार्ड",
-            "परिवार के सदस्यों के आधार कार्ड",
-            "जन आधार",
-            "Passport Size Photo",
-            "Signature / Thumb",
-            "पुराने राशन कार्ड से नाम हटाने की NOC",
-            "Marriage Certificate",
-            "बच्चा हो तो उसका Birth Certificate"
-        ],
-
-        onlineAvailable: true,
-        offlineFormAvailable: true,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
-
-
-    {
-        id: "jan-aadhaar-correction",
-        name: "जन आधार संशोधन",
-        englishName: "Jan Aadhaar Correction",
-        category: "Rajasthan Services",
-
-        keywords: [
-            "जन आधार संशोधन",
-            "जन आधार correction",
-            "jan aadhaar correction",
-            "correction"
-        ],
-
-        description:
-            "जन आधार में अलग-अलग प्रकार के संशोधन के लिए संबंधित प्रमाण।",
-
-        documents: [
-            "नाम correction: सही नाम वाला दस्तावेज",
-            "जन्म तारीख correction: संबंधित DOB Proof",
-            "पिता / पति का नाम: संबंधित प्रमाण",
-            "पता correction: Address Proof",
-            "मोबाइल / Bank Details: संबंधित मोबाइल या Bank document",
-            "परिवार के सदस्य जोड़ना / हटाना: संबंधित प्रमाण"
-        ],
-
-        onlineAvailable: true,
-        offlineFormAvailable: false,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
-
-
-    {
-        id: "aadhaar-mobile",
-        name: "आधार में मोबाइल नंबर बदलना",
-        englishName: "Aadhaar Mobile Number Update",
-        category: "Aadhaar Services",
-
-        keywords: [
-            "आधार मोबाइल",
-            "मोबाइल नंबर बदलना",
-            "aadhaar mobile",
-            "aadhaar mobile number",
-            "mobile update"
-        ],
-
-        description:
-            "आधार में मोबाइल नंबर बदलने की सेवा।",
-
-        documents: [
-            "आधार कार्ड",
-            "Face Authentication",
-            "पुराने नंबर पर OTP"
-        ],
-
         note:
-            "नया नंबर link नहीं, केवल मोबाइल नंबर change किया जाता है।",
+            "आवेदन के समय आधार से लिंक मोबाइल नंबर और Bank Passbook साथ रखें।",
 
         onlineAvailable: false,
-        offlineFormAvailable: false,
-
         onlineUrl: "",
+
+        offlineFormAvailable: false,
         formUrl: ""
     },
 
+    /* ===================================
+   10. आयुष्मान कार्ड
+=================================== */
 
-    {
-        id: "aadhaar-address",
-        name: "आधार में पता अपडेट",
-        englishName: "Aadhaar Address Update",
-        category: "Aadhaar Services",
+{
+    id: "ayushman",
+    name: "आयुष्मान कार्ड",
+    englishName: "Ayushman Bharat Card",
+    category: "Government Services",
 
-        keywords: [
-            "आधार पता",
-            "पता अपडेट",
-            "aadhaar address",
-            "address update"
-        ],
+    description:
+        "आयुष्मान कार्ड के लिए आवश्यक documents और Face Authentication।",
 
-        description:
-            "आधार में पता अपडेट करने की सेवा।",
+    keywords: [
+        "आयुष्मान",
+        "ayushman",
+        "ayushman card",
+        "pmjay",
+        "आयुष्मान कार्ड"
+    ],
 
-        documents: [
-            "आधार कार्ड",
-            "OTP",
-            "Address Proof: Voter ID Card, मूल निवास आदि"
-        ],
+    documents: [
+        "आधार कार्ड",
+        "जन आधार",
+        "Passport Size Photo",
+        "आधार से लिंक मोबाइल नंबर पर OTP",
+        "Face Authentication"
+    ],
 
-        onlineAvailable: true,
-        offlineFormAvailable: false,
+    note:
+        "आवेदन के समय Face Authentication और OTP verification की आवश्यकता हो सकती है।",
 
-        onlineUrl: "",
-        formUrl: ""
-    },
+    onlineAvailable: false,
+    onlineUrl: "",
 
-
-    {
-        id: "aadhaar-bank",
-        name: "आधार बैंक सीडिंग",
-        englishName: "Aadhaar Bank Seeding",
-        category: "Aadhaar Services",
-
-        keywords: [
-            "आधार बैंक",
-            "बैंक सीडिंग",
-            "aadhaar bank",
-            "bank seeding",
-            "dbt"
-        ],
-
-        description:
-            "आधार को बैंक खाते से सीड करने के लिए आवश्यक दस्तावेज।",
-
-        documents: [
-            "आधार कार्ड",
-            "Bank Passbook",
-            "OTP"
-        ],
-
-        onlineAvailable: false,
-        offlineFormAvailable: false,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
+    offlineFormAvailable: false,
+    formUrl: ""
+},
 
 
-    {
-        id: "online-form",
-        name: "ऑनलाइन फॉर्म भरना",
-        englishName: "Online Form Filling",
-        category: "Digital Services",
+/* ===================================
+   11. नया राशन कार्ड
+=================================== */
 
-        keywords: [
-            "ऑनलाइन फॉर्म",
-            "form",
-            "online form",
-            "form filling"
-        ],
+{
+    id: "new-ration-card",
+    name: "नया राशन कार्ड",
+    englishName: "New Ration Card",
+    category: "Rajasthan Services",
 
-        description:
-            "विभिन्न सरकारी एवं अन्य ऑनलाइन आवेदन फॉर्म भरने की सुविधा।",
+    description:
+        "नया राशन कार्ड बनवाने के लिए आवश्यक documents।",
 
-        documents: [
-            "संबंधित आवेदन के जरूरी दस्तावेज",
-            "मोबाइल नंबर",
-            "OTP के लिए मोबाइल"
-        ],
+    keywords: [
+        "राशन",
+        "ration",
+        "ration card",
+        "new ration card",
+        "नया राशन कार्ड"
+    ],
 
-        onlineAvailable: false,
-        offlineFormAvailable: false,
+    documents: [
+        "आधार कार्ड",
+        "परिवार के सदस्यों के आधार कार्ड",
+        "जन आधार",
+        "Passport Size Photo",
+        "Signature / Thumb",
+        "पुराने राशन कार्ड से नाम हटाने की NOC",
+        "Marriage Certificate",
+        "बच्चा हो तो उसका Birth Certificate"
+    ],
 
-        onlineUrl: "",
-        formUrl: ""
-    },
+    note:
+        "परिवार के सदस्यों के अनुसार संबंधित documents साथ लेकर आएं।",
 
+    onlineAvailable: false,
+    onlineUrl: "",
 
-    {
-        id: "document-scan",
-        name: "डॉक्यूमेंट स्कैन / PDF / अपलोड",
-        englishName: "Document Scan / PDF / Upload",
-        category: "Digital Services",
-
-        keywords: [
-            "स्कैन",
-            "pdf",
-            "upload",
-            "document scan",
-            "pdf बनाना",
-            "डॉक्यूमेंट"
-        ],
-
-        description:
-            "दस्तावेज स्कैन, PDF बनाने और ऑनलाइन अपलोड करने की सुविधा।",
-
-        documents: [
-            "Original documents साथ लाएं",
-            "दस्तावेज साफ और पूरे होने चाहिए"
-        ],
-
-        services: [
-            "Document Scan",
-            "PDF बनाना",
-            "Online Upload"
-        ],
-
-        onlineAvailable: false,
-        offlineFormAvailable: false,
-
-        onlineUrl: "",
-        formUrl: ""
-    },
+    offlineFormAvailable: false,
+    formUrl: ""
+},
 
 
-    {
-        id: "photo-sign-print",
-        name: "फोटो / सिग्नेचर / प्रिंट",
-        englishName: "Photo / Signature / Print",
-        category: "Digital Services",
+/* ===================================
+   12. जन आधार संशोधन
+=================================== */
 
-        keywords: [
-            "फोटो",
-            "सिग्नेचर",
-            "signature",
-            "photo",
-            "print",
-            "passport photo",
-            "digital photo"
-        ],
+{
+    id: "jan-aadhaar-correction",
+    name: "जन आधार संशोधन",
+    englishName: "Jan Aadhaar Correction",
+    category: "Rajasthan Services",
 
-        description:
-            "फोटो, डिजिटल फोटो, सिग्नेचर और प्रिंट से संबंधित सेवाएं।",
+    description:
+        "जन आधार में नाम, जन्म तारीख, पता, परिवार के सदस्य और अन्य विवरणों में correction।",
 
-        documents: [
-            "Passport Size Photo तैयार करना",
-            "Digital Photo तैयार करना",
-            "Signature तैयार करना",
-            "दस्तावेज Print करना",
-            "जरूरत के अनुसार PDF / Copy तैयार करना"
-        ],
+    keywords: [
+        "जन आधार correction",
+        "jan aadhaar correction",
+        "jan aadhaar update",
+        "नाम correction",
+        "DOB correction",
+        "पता correction"
+    ],
 
-        onlineAvailable: false,
-        offlineFormAvailable: false,
+    documents: [
+        "नाम correction: सही नाम वाला दस्तावेज",
+        "जन्म तारीख correction: संबंधित DOB Proof",
+        "पिता / पति का नाम: संबंधित प्रमाण",
+        "पता correction: Address Proof",
+        "मोबाइल / Bank Details: संबंधित मोबाइल या Bank document",
+        "परिवार के सदस्य जोड़ना / हटाना: संबंधित प्रमाण"
+    ],
 
-        onlineUrl: "",
-        formUrl: ""
-    }
+    note:
+        "Correction के प्रकार के अनुसार संबंधित प्रमाण साथ लेकर आएं।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   13. आधार में मोबाइल नंबर बदलना
+=================================== */
+
+{
+    id: "aadhaar-mobile-change",
+    name: "आधार में मोबाइल नंबर बदलना",
+    englishName: "Aadhaar Mobile Number Change",
+    category: "Aadhaar Services",
+
+    description:
+        "आधार में registered mobile number change करने की सेवा।",
+
+    keywords: [
+        "आधार",
+        "aadhar",
+        "aadhaar",
+        "mobile number",
+        "mobile change",
+        "आधार मोबाइल नंबर"
+    ],
+
+    documents: [
+        "आधार कार्ड",
+        "Face Authentication",
+        "पुराने नंबर पर OTP"
+    ],
+
+    note:
+        "नया नंबर link नहीं, केवल मोबाइल नंबर change किया जाता है।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   14. आधार में पता अपडेट
+=================================== */
+
+{
+    id: "aadhaar-address-update",
+    name: "आधार में पता अपडेट",
+    englishName: "Aadhaar Address Update",
+    category: "Aadhaar Services",
+
+    description:
+        "आधार में address update करने के लिए आवश्यक documents।",
+
+    keywords: [
+        "आधार पता",
+        "aadhar address",
+        "aadhaar address",
+        "address update",
+        "पता अपडेट"
+    ],
+
+    documents: [
+        "आधार कार्ड",
+        "OTP",
+        "Address Proof: Voter ID Card, मूल निवास आदि"
+    ],
+
+    note:
+        "Address update के लिए मान्य Address Proof उपलब्ध रखें।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   15. आधार बैंक सीडिंग
+=================================== */
+
+{
+    id: "aadhaar-bank-seeding",
+    name: "आधार में बैंक सीडिंग",
+    englishName: "Aadhaar Bank Seeding",
+    category: "Aadhaar Services",
+
+    description:
+        "आधार को बैंक खाते से seed/link करने की सेवा।",
+
+    keywords: [
+        "आधार बैंक",
+        "bank seeding",
+        "aadhaar seeding",
+        "aadhar bank link",
+        "bank link"
+    ],
+
+    documents: [
+        "आधार कार्ड",
+        "Bank Passbook",
+        "OTP"
+    ],
+
+    note:
+        "Bank Passbook और आवश्यक OTP verification के लिए मोबाइल उपलब्ध रखें।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   16. ऑनलाइन फॉर्म भरना
+=================================== */
+
+{
+    id: "online-form",
+    name: "ऑनलाइन फॉर्म भरना",
+    englishName: "Online Form Filling",
+    category: "Digital Services",
+
+    description:
+        "विभिन्न सरकारी और अन्य ऑनलाइन applications के forms भरने की सुविधा।",
+
+    keywords: [
+        "online form",
+        "form filling",
+        "ऑनलाइन फॉर्म",
+        "फॉर्म भरना",
+        "application"
+    ],
+
+    documents: [
+        "संबंधित आवेदन के जरूरी दस्तावेज",
+        "मोबाइल नंबर",
+        "OTP के लिए मोबाइल"
+    ],
+
+    note:
+        "हर application के लिए documents अलग हो सकते हैं। संबंधित सेवा की checklist जरूर देखें।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   17. डॉक्यूमेंट स्कैन / PDF / अपलोड
+=================================== */
+
+{
+    id: "document-scan-pdf-upload",
+    name: "डॉक्यूमेंट स्कैन / PDF / अपलोड",
+    englishName: "Document Scan, PDF & Upload",
+    category: "Digital Services",
+
+    description:
+        "Documents को scan करके PDF बनाना और online portal पर upload करने की सुविधा।",
+
+    keywords: [
+        "scan",
+        "document scan",
+        "pdf",
+        "upload",
+        "document upload",
+        "स्कैन",
+        "पीडीएफ",
+        "अपलोड"
+    ],
+
+    documents: [
+        "Original documents साथ लाएं",
+        "दस्तावेज साफ और पूरे होने चाहिए",
+        "Document Scan करना",
+        "PDF बनाना",
+        "Online Upload करना"
+    ],
+
+    services: [
+        "Original Document Scan",
+        "PDF बनाना",
+        "Document Upload"
+    ],
+
+    note:
+        "Online upload के लिए documents साफ और पूरे होने चाहिए।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+},
+
+
+/* ===================================
+   18. फोटो / सिग्नेचर / प्रिंट
+=================================== */
+
+{
+    id: "photo-signature-print",
+    name: "फोटो / सिग्नेचर / प्रिंट",
+    englishName: "Photo, Signature & Printing",
+    category: "Digital Services",
+
+    description:
+        "Passport size photo, digital photo, signature और document printing की सुविधा।",
+
+    keywords: [
+        "photo",
+        "passport photo",
+        "signature",
+        "print",
+        "printing",
+        "फोटो",
+        "सिग्नेचर",
+        "प्रिंट"
+    ],
+
+    documents: [
+        "Passport Size Photo तैयार करना",
+        "Digital Photo तैयार करना",
+        "Signature तैयार करना",
+        "दस्तावेज Print करना",
+        "जरूरत के अनुसार PDF / Copy तैयार करना"
+    ],
+
+    services: [
+        "Passport Size Photo",
+        "Digital Photo",
+        "Digital Signature",
+        "Document Printing",
+        "PDF / Copy"
+    ],
+
+    note:
+        "आवश्यकता के अनुसार photo, signature, print या PDF तैयार किया जाएगा।",
+
+    onlineAvailable: false,
+    onlineUrl: "",
+
+    offlineFormAvailable: false,
+    formUrl: ""
+}
 
 ];
 
 
 /*
 ========================================
-HELPER FUNCTIONS
+SERVICE FUNCTIONS
 ========================================
 */
 
+
 function getServiceById(id) {
-    return services.find(service => service.id === id);
-}
 
-
-function searchServices(query) {
-
-    const searchTerm = query
-        .toLowerCase()
-        .trim();
-
-    if (!searchTerm) {
-        return [];
-    }
-
-    return services.filter(service => {
-
-        const searchableText = [
-            service.name,
-            service.englishName,
-            service.category,
-            ...(service.keywords || [])
-        ]
-            .join(" ")
-            .toLowerCase();
-
-        return searchableText.includes(searchTerm);
-    });
-}
-
-
-function getServicesByCategory(category) {
-
-    return services.filter(
-        service => service.category === category
+    return services.find(
+        function (service) {
+            return service.id === id;
+        }
     );
 
 }
 
 
-function getCategories() {
+function searchServices(query) {
 
-    return [
-        ...new Set(
-            services.map(service => service.category)
-        )
-    ];
+    const searchQuery =
+        String(query)
+            .toLowerCase()
+            .trim();
+
+
+    if (!searchQuery) {
+        return services;
+    }
+
+
+    return services.filter(
+        function (service) {
+
+            const searchableText = [
+
+                service.name,
+
+                service.englishName,
+
+                service.category,
+
+                ...(service.keywords || [])
+
+            ]
+                .join(" ")
+                .toLowerCase();
+
+
+            return searchableText.includes(
+                searchQuery
+            );
+
+        }
+    );
 
 }
