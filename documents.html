@@ -23,7 +23,7 @@
     <style>
 
         /* =================================
-           DOCUMENT PAGE
+           PAGE HERO
         ================================= */
 
         .page-hero {
@@ -68,7 +68,7 @@
 
 
         /* =================================
-           SIDEBAR
+           SERVICE SELECTOR
         ================================= */
 
         .service-selector {
@@ -179,12 +179,12 @@
             font-weight: 900;
             letter-spacing: 1px;
             margin-bottom: 8px;
-            text-transform: uppercase;
         }
 
         .document-header h2 {
             font-size: clamp(25px, 4vw, 36px);
             line-height: 1.25;
+            margin: 0;
         }
 
         .english-name {
@@ -212,10 +212,10 @@
 
         .checklist {
             list-style: none;
-            padding: 0;
-            margin: 0;
             display: grid;
             gap: 10px;
+            padding: 0;
+            margin: 0;
         }
 
         .checklist li {
@@ -273,6 +273,7 @@
         .document-actions .btn {
             cursor: pointer;
             border: 0;
+            text-decoration: none;
         }
 
         .btn-dark {
@@ -298,18 +299,6 @@
         .empty-state h2 {
             color: var(--black);
             margin-bottom: 8px;
-        }
-
-
-        /* =================================
-           NO RESULTS
-        ================================= */
-
-        .no-results {
-            text-align: center;
-            padding: 25px 10px;
-            color: var(--gray);
-            font-size: 13px;
         }
 
 
@@ -354,7 +343,7 @@
 
 
         /* =================================
-           MOBILE
+           TABLET / MOBILE
         ================================= */
 
         @media (max-width: 800px) {
@@ -516,6 +505,7 @@
 </header>
 
 
+
 <!-- =========================================
      PAGE HERO
 ========================================= -->
@@ -540,6 +530,7 @@
     </div>
 
 </section>
+
 
 
 <!-- =========================================
@@ -587,10 +578,11 @@
 
                 <div
                     class="service-list"
-                    id="serviceList">
-                </div>
+                    id="serviceList"
+                ></div>
 
             </aside>
+
 
 
             <!-- =================================
@@ -620,6 +612,7 @@
     </div>
 
 </main>
+
 
 
 <!-- =========================================
@@ -663,6 +656,7 @@
             </div>
 
 
+
             <div class="footer-links">
 
                 <h3>
@@ -686,6 +680,7 @@
                 </a>
 
             </div>
+
 
 
             <div class="footer-links">
@@ -729,6 +724,7 @@
 </footer>
 
 
+
 <!-- =========================================
      JAVASCRIPT
 ========================================= -->
@@ -737,446 +733,9 @@
 
 <script src="js/app.js"></script>
 
+<script src="js/document.js"></script>
 
-<script>
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+</body>
 
-
-        /* =================================
-           ELEMENTS
-        ================================= */
-
-        const serviceSelect =
-            document.getElementById(
-                "serviceSelect"
-            );
-
-        const serviceList =
-            document.getElementById(
-                "serviceList"
-            );
-
-        const documentSearch =
-            document.getElementById(
-                "documentSearch"
-            );
-
-        const documentContent =
-            document.getElementById(
-                "documentContent"
-            );
-
-
-        /* =================================
-           CHECK SERVICES DATA
-        ================================= */
-
-        if (
-            typeof services === "undefined" ||
-            !Array.isArray(services)
-        ) {
-
-            documentContent.innerHTML = `
-
-                <div class="document-card empty-state">
-
-                    <h2>
-                        Services load नहीं हो रही हैं
-                    </h2>
-
-                    <p>
-                        कृपया js/services.js file check करें।
-                    </p>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        /* =================================
-           ADD SERVICES TO DROPDOWN
-        ================================= */
-
-        services.forEach(
-            function (service) {
-
-                const option =
-                    document.createElement(
-                        "option"
-                    );
-
-                option.value =
-                    service.id;
-
-                option.textContent =
-                    service.name;
-
-                serviceSelect.appendChild(
-                    option
-                );
-
-            }
-        );
-
-
-        /* =================================
-           LOAD SERVICE
-        ================================= */
-
-        function loadService(id) {
-
-            const service =
-                typeof getServiceById === "function"
-                    ? getServiceById(id)
-                    : services.find(
-                        function (item) {
-                            return item.id === id;
-                        }
-                    );
-
-
-            if (!service) {
-
-                documentContent.innerHTML = `
-
-                    <div class="document-card empty-state">
-
-                        <h2>
-                            Service नहीं मिली
-                        </h2>
-
-                        <p>
-                            कृपया दूसरी service select करें।
-                        </p>
-
-                    </div>
-
-                `;
-
-                return;
-
-            }
-
-
-            /* Update dropdown */
-
-            serviceSelect.value =
-                service.id;
-
-
-            /* Update URL */
-
-            const newUrl =
-                window.location.pathname +
-                "?service=" +
-                encodeURIComponent(
-                    service.id
-                );
-
-            window.history.replaceState(
-                {},
-                "",
-                newUrl
-            );
-
-
-            /* Active button */
-
-            document
-                .querySelectorAll(
-                    "#serviceList button"
-                )
-                .forEach(
-                    function (button) {
-
-                        button.classList.toggle(
-                            "active",
-                            button.dataset.id ===
-                            service.id
-                        );
-
-                    }
-                );
-
-
-            /* =================================
-               DOCUMENTS
-            ================================= */
-
-            let checklistHTML = "";
-
-
-            if (
-                service.documents &&
-                service.documents.length
-            ) {
-
-                checklistHTML =
-                    service.documents
-                        .map(
-                            function (documentName) {
-
-                                return `
-
-                                    <li>
-
-                                        <span class="check-icon">
-                                            ✓
-                                        </span>
-
-                                        <span>
-                                            ${escapeHTML(
-                                                documentName
-                                            )}
-                                        </span>
-
-                                    </li>
-
-                                `;
-
-                            }
-                            }
-                        )
-                        .join("");
-
-            } else {
-
-                checklistHTML = `
-
-                    <li>
-
-                        <span class="check-icon">
-                            ✓
-                        </span>
-
-                        <span>
-                            इस सेवा के लिए documents की जानकारी
-                            अभी उपलब्ध नहीं है।
-                        </span>
-
-                    </li>
-
-                `;
-
-            }
-
-
-            /* =================================
-               DOCUMENT CONTENT
-            ================================= */
-
-            documentContent.innerHTML = `
-
-                <div class="document-card">
-
-                    <div class="document-header">
-
-                        <span class="document-category">
-                            ${escapeHTML(
-                                service.category || "SERVICE"
-                            ).toUpperCase()}
-                        </span>
-
-                        <h2>
-                            ${escapeHTML(
-                                service.name
-                            )}
-                        </h2>
-
-                        <div class="english-name">
-                            ${escapeHTML(
-                                service.englishName || ""
-                            )}
-                        </div>
-
-                        <p class="document-description">
-                            ${escapeHTML(
-                                service.description || ""
-                            )}
-                        </p>
-
-                    </div>
-
-
-                    <h3 class="checklist-title">
-                        इस सेवा के लिए आवश्यक दस्तावेज
-                    </h3>
-
-
-                    <ul class="checklist">
-
-                        ${checklistHTML}
-
-                    </ul>
-
-
-                    ${
-                        service.note
-                        ? `
-                            <div class="document-note">
-
-                                <strong>
-                                    जरूरी सूचना:
-                                </strong>
-
-                                ${escapeHTML(
-                                    service.note
-                                )}
-
-                            </div>
-                        `
-                        : ""
-                    }
-
-
-                    <div class="document-actions">
-
-                        <button
-                            type="button"
-                            class="btn btn-dark"
-                            onclick="window.print()"
-                        >
-                            🖨 Print Checklist
-                        </button>
-
-
-                        ${
-                            service.onlineAvailable &&
-                            service.onlineUrl
-                            ? `
-                                <a
-                                    href="${escapeHTML(
-                                        service.onlineUrl
-                                    )}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-primary"
-                                >
-                                    Online Apply
-                                </a>
-                            `
-                            : ""
-                        }
-
-
-                        ${
-                            service.offlineFormAvailable &&
-                            service.formUrl
-                            ? `
-                                <a
-                                    href="${escapeHTML(
-                                        service.formUrl
-                                    )}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-outline"
-                                >
-                                    Download Form
-                                </a>
-                            `
-                            : ""
-                        }
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            /* =================================
-               UPDATE DROPDOWN
-            ================================= */
-
-            if (serviceSelect) {
-
-                serviceSelect.value =
-                    service.id;
-
-            }
-
-
-            /* =================================
-               UPDATE ACTIVE BUTTON
-            ================================= */
-
-            document
-                .querySelectorAll(
-                    "#serviceList button"
-                )
-                .forEach(
-                    function (button) {
-
-                        button.classList.toggle(
-                            "active",
-                            button.dataset.id ===
-                            service.id
-                        );
-
-                    }
-                );
-
-
-            /* =================================
-               UPDATE URL
-            ================================= */
-
-            const url =
-                new URL(
-                    window.location.href
-                );
-
-            url.searchParams.set(
-                "service",
-                service.id
-            );
-
-            window.history.replaceState(
-                {},
-                "",
-                url
-            );
-
-
-            /* =================================
-               SCROLL TO DOCUMENT
-            ================================= */
-
-            if (
-                window.innerWidth <= 800
-            ) {
-
-                documentContent.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-
-        }
-
-
-        /* =================================
-           ESCAPE HTML
-        ================================= */
-
-        function escapeHTML(value) {
-
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-
-        }
-
-
-    </script>
+</html>
