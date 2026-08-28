@@ -1,10 +1,60 @@
+/*
+========================================
+JANGIRA E MITRA
+DOCUMENTS PAGE
+========================================
+*/
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    const serviceSelect =
+        document.getElementById("serviceSelect");
+
+    const serviceList =
+        document.getElementById("serviceList");
 
     const documentContent =
         document.getElementById("documentContent");
 
-    const serviceSelect =
-        document.getElementById("serviceSelect");
+    const documentSearch =
+        document.getElementById("documentSearch");
+
+
+    /*
+    ========================================
+    CHECK REQUIRED ELEMENTS
+    ========================================
+    */
+
+    if (
+        !serviceSelect ||
+        !serviceList ||
+        !documentContent
+    ) {
+        console.error(
+            "Documents page elements not found."
+        );
+
+        return;
+    }
+
+
+    /*
+    ========================================
+    ESCAPE HTML
+    ========================================
+    */
+
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
 
 
     /*
@@ -13,21 +63,29 @@ document.addEventListener("DOMContentLoaded", function () {
     ========================================
     */
 
-    window.loadService = function (id) {
+    function loadService(serviceId) {
 
         const service =
-            getServiceById(id);
+            getServiceById(serviceId);
 
 
         if (!service) {
 
             documentContent.innerHTML = `
+
                 <div class="document-card empty-state">
-                    <h2>सेवा नहीं मिली</h2>
+
+                    <h2>
+                        Service नहीं मिली
+                    </h2>
+
                     <p>
-                        कृपया कोई दूसरी service चुनें।
+                        कृपया नीचे दी गई list में से
+                        कोई दूसरी service चुनें।
                     </p>
+
                 </div>
+
             `;
 
             return;
@@ -35,123 +93,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-        ------------------------------------
-        SELECT SERVICE
-        ------------------------------------
+        ====================================
+        CHECKLIST
+        ====================================
         */
 
-        if (serviceSelect) {
-            serviceSelect.value = service.id;
-        }
-
-
-        /*
-        ------------------------------------
-        DOCUMENT LIST
-        ------------------------------------
-        */
-
-        const documents =
-            service.documents || [];
-
-
-        let documentsHTML = "";
-
-
-        if (documents.length > 0) {
-
-            documents.forEach(
-                function (documentName) {
-
-                    documentsHTML += `
-                        <li>
-                            <span class="check-icon">
-                                ✓
-                            </span>
-
-                            <span>
-                                ${escapeHTML(documentName)}
-                            </span>
-                        </li>
-                    `;
-
-                }
-            );
-
-        } else {
-
-            documentsHTML = `
-                <li>
-                    <span class="check-icon">
-                        !
-                    </span>
-
-                    <span>
-                        इस सेवा के documents की जानकारी
-                        जल्द अपडेट की जाएगी।
-                    </span>
-                </li>
-            `;
-
-        }
-
-
-        /*
-        ------------------------------------
-        NOTE
-        ------------------------------------
-        */
-
-        let noteHTML = "";
-
-
-        if (service.note) {
-
-            noteHTML = `
-                <div class="document-note">
-
-                    <strong>
-                        जरूरी सूचना:
-                    </strong>
-
-                    ${escapeHTML(service.note)}
-
-                </div>
-            `;
-
-        }
-
-
-        /*
-        ------------------------------------
-        EXTRA SERVICES
-        ------------------------------------
-        */
-
-        let extraServicesHTML = "";
+        let checklistHTML = "";
 
 
         if (
-            service.services &&
-            service.services.length
+            service.documents &&
+            service.documents.length
         ) {
 
-            extraServicesHTML = `
+            checklistHTML =
+                service.documents
+                    .map(function (documentName) {
 
-                <div class="document-note">
+                        return `
 
-                    <strong>
-                        उपलब्ध सेवाएं:
-                    </strong>
+                            <li>
 
-                    ${service.services
-                        .map(function (item) {
-                            return escapeHTML(item);
-                        })
-                        .join(" • ")
-                    }
+                                <span class="check-icon">
+                                    ✓
+                                </span>
 
-                </div>
+                                <span>
+                                    ${escapeHTML(
+                                        documentName
+                                    )}
+                                </span>
+
+                            </li>
+
+                        `;
+
+                    })
+                    .join("");
+
+        } else {
+
+            checklistHTML = `
+
+                <li>
+
+                    <span class="check-icon">
+                        ✓
+                    </span>
+
+                    <span>
+                        इस सेवा के लिए documents की जानकारी
+                        अभी उपलब्ध नहीं है।
+                    </span>
+
+                </li>
 
             `;
 
@@ -159,23 +154,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-        ------------------------------------
-        ONLINE APPLY BUTTON
-        ------------------------------------
+        ====================================
+        ONLINE BUTTON
+        ====================================
         */
 
         let onlineButton = "";
 
 
-        if (service.onlineAvailable) {
+        if (
+            service.onlineAvailable &&
+            service.onlineUrl
+        ) {
 
             onlineButton = `
 
                 <a
-                    href="${service.onlineUrl || "#"}"
-                    class="btn btn-primary"
+                    href="${escapeHTML(
+                        service.onlineUrl
+                    )}"
                     target="_blank"
                     rel="noopener noreferrer"
+                    class="btn btn-primary"
                 >
                     Online Apply
                 </a>
@@ -186,23 +186,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-        ------------------------------------
+        ====================================
         OFFLINE FORM BUTTON
-        ------------------------------------
+        ====================================
         */
 
         let formButton = "";
 
 
-        if (service.offlineFormAvailable) {
+        if (
+            service.offlineFormAvailable &&
+            service.formUrl
+        ) {
 
             formButton = `
 
                 <a
-                    href="${service.formUrl || "forms.html"}"
-                    class="btn btn-dark"
+                    href="${escapeHTML(
+                        service.formUrl
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline"
                 >
-                    Offline Form
+                    Download Form
                 </a>
 
             `;
@@ -212,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /*
         ====================================
-        DISPLAY DOCUMENT
+        DOCUMENT CONTENT
         ====================================
         */
 
@@ -220,14 +227,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="document-card">
 
-
                 <div class="document-header">
 
                     <span class="document-category">
 
                         ${escapeHTML(
-                            service.category || "SERVICE"
-                        )}
+                            service.category ||
+                            "SERVICE"
+                        ).toUpperCase()}
 
                     </span>
 
@@ -270,23 +277,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <ul class="checklist">
 
-                    ${documentsHTML}
+                    ${checklistHTML}
 
                 </ul>
 
 
-                ${noteHTML}
+                ${
+                    service.note
+                    ? `
 
-                ${extraServicesHTML}
+                        <div class="document-note">
+
+                            <strong>
+                                जरूरी सूचना:
+                            </strong>
+
+                            ${escapeHTML(
+                                service.note
+                            )}
+
+                        </div>
+
+                    `
+                    : ""
+                }
 
 
                 <div class="document-actions">
 
-
                     <button
                         type="button"
-                        class="btn btn-primary"
-                        onclick="window.print()"
+                        class="btn btn-dark"
+                        id="printChecklistBtn"
                     >
                         Print Checklist
                     </button>
@@ -297,9 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     ${formButton}
 
-
                 </div>
-
 
             </div>
 
@@ -307,9 +327,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-        ------------------------------------
+        ====================================
+        DROPDOWN UPDATE
+        ====================================
+        */
+
+        serviceSelect.value =
+            service.id;
+
+
+        /*
+        ====================================
+        ACTIVE LIST BUTTON
+        ====================================
+        */
+
+        document
+            .querySelectorAll(
+                "#serviceList button"
+            )
+            .forEach(function (button) {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.id ===
+                    service.id
+                );
+
+            });
+
+
+        /*
+        ====================================
+        PRINT BUTTON
+        ====================================
+        */
+
+        const printButton =
+            document.getElementById(
+                "printChecklistBtn"
+            );
+
+
+        if (printButton) {
+
+            printButton.addEventListener(
+                "click",
+                function () {
+
+                    window.print();
+
+                }
+            );
+
+        }
+
+
+        /*
+        ====================================
         UPDATE URL
-        ------------------------------------
+        ====================================
         */
 
         const url =
@@ -332,59 +409,304 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-        ------------------------------------
-        ACTIVE BUTTON
-        ------------------------------------
+        ====================================
+        MOBILE SCROLL
+        ====================================
         */
 
-        document
-            .querySelectorAll(
-                "#serviceList button"
-            )
-            .forEach(
-                function (button) {
+        if (
+            window.innerWidth <= 800
+        ) {
 
-                    button.classList.toggle(
-                        "active",
-                        button.dataset.id ===
+            setTimeout(function () {
+
+                documentContent.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 100);
+
+        }
+
+    }
+
+
+    /*
+    ========================================
+    ADD SERVICES TO DROPDOWN
+    ========================================
+    */
+
+    serviceSelect.innerHTML = `
+
+        <option value="">
+            -- सेवा चुनें --
+        </option>
+
+    `;
+
+
+    services.forEach(function (service) {
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            service.id;
+
+
+        option.textContent =
+            service.name;
+
+
+        serviceSelect.appendChild(
+            option
+        );
+
+    });
+
+
+    /*
+    ========================================
+    RENDER SERVICE LIST
+    ========================================
+    */
+
+    function renderServiceList(
+        serviceArray
+    ) {
+
+        serviceList.innerHTML = "";
+
+
+        if (
+            !serviceArray ||
+            serviceArray.length === 0
+        ) {
+
+            serviceList.innerHTML = `
+
+                <div
+                    style="
+                        padding:15px;
+                        color:#777;
+                        font-size:13px;
+                        text-align:center;
+                    "
+                >
+                    कोई service नहीं मिली।
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        serviceArray.forEach(function (service) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type = "button";
+
+
+            button.dataset.id =
+                service.id;
+
+
+            button.textContent =
+                service.name;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    loadService(
                         service.id
                     );
 
                 }
             );
 
-    };
+
+            serviceList.appendChild(
+                button
+            );
+
+        });
+
+
+        updateActiveService();
+
+    }
 
 
     /*
     ========================================
-    HTML ESCAPE
+    ACTIVE SERVICE
     ========================================
     */
 
-    function escapeHTML(value) {
+    function updateActiveService() {
 
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
+        const params =
+            new URLSearchParams(
+                window.location.search
             );
+
+
+        const currentId =
+            params.get("service");
+
+
+        document
+            .querySelectorAll(
+                "#serviceList button"
+            )
+            .forEach(function (button) {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.id ===
+                    currentId
+                );
+
+            });
+
+    }
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if (documentSearch) {
+
+        documentSearch.addEventListener(
+            "input",
+            function () {
+
+                const query =
+                    documentSearch.value
+                        .toLowerCase()
+                        .trim();
+
+
+                if (!query) {
+
+                    renderServiceList(
+                        services
+                    );
+
+                    return;
+
+                }
+
+
+                const filtered =
+                    searchServices(query);
+
+
+                renderServiceList(
+                    filtered
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+    ========================================
+    DROPDOWN CHANGE
+    ========================================
+    */
+
+    serviceSelect.addEventListener(
+        "change",
+        function () {
+
+            const serviceId =
+                this.value;
+
+
+            if (!serviceId) {
+
+                documentContent.innerHTML = `
+
+                    <div class="document-card empty-state">
+
+                        <h2>
+                            सेवा चुनें
+                        </h2>
+
+                        <p>
+                            सेवा चुनने के बाद
+                            required documents यहां दिखाई देंगे।
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            loadService(
+                serviceId
+            );
+
+        }
+    );
+
+
+    /*
+    ========================================
+    INITIAL SERVICE LIST
+    ========================================
+    */
+
+    renderServiceList(
+        services
+    );
+
+
+    /*
+    ========================================
+    LOAD SERVICE FROM URL
+    Example:
+    documents.html?service=caste
+    ========================================
+    */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const requestedService =
+        params.get("service");
+
+
+    if (requestedService) {
+
+        loadService(
+            requestedService
+        );
 
     }
 
