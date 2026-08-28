@@ -2,6 +2,7 @@
 ========================================
 JANGIRA E MITRA
 SERVICES MASTER DATA
+COMPLETE VERSION
 ========================================
 */
 
@@ -760,26 +761,18 @@ const services = [
 
 /*
 ========================================
-GET SERVICE BY ID
+SERVICE FUNCTIONS
 ========================================
 */
 
 function getServiceById(id) {
 
     return services.find(function (service) {
-
         return service.id === id;
-
     });
 
 }
 
-
-/*
-========================================
-SEARCH SERVICES
-========================================
-*/
 
 function searchServices(query) {
 
@@ -788,30 +781,20 @@ function searchServices(query) {
             .toLowerCase()
             .trim();
 
-
     if (!searchQuery) {
-
         return services;
-
     }
-
 
     return services.filter(function (service) {
 
         const searchableText = [
-
             service.name,
-
             service.englishName,
-
             service.category,
-
             ...(service.keywords || [])
-
         ]
             .join(" ")
             .toLowerCase();
-
 
         return searchableText.includes(
             searchQuery
