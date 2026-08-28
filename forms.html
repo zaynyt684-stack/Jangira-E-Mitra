@@ -1,1 +1,722 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Forms | Jangira E Mitra</title>
+
+    <meta name="description"
+          content="Jangira E Mitra पर विभिन्न सरकारी सेवाओं के आवेदन फॉर्म देखें, डाउनलोड करें और प्रिंट करें।">
+
+    <meta name="theme-color"
+          content="#111114">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+
+    <style>
+
+        /* =================================
+           FORMS PAGE
+        ================================= */
+
+        .page-hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 65px 0;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .page-hero h1 span {
+            color: var(--orange);
+        }
+
+        .page-hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #BDBDBD;
+            font-size: 15px;
+        }
+
+
+        /* =================================
+           FORMS SECTION
+        ================================= */
+
+        .forms-section {
+            padding: 65px 0 90px;
+        }
+
+
+        /* =================================
+           FILTER BAR
+        ================================= */
+
+        .forms-filter {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .forms-filter input,
+        .forms-filter select {
+
+            width: 100%;
+            padding: 14px 16px;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: var(--white);
+            color: var(--black);
+
+            outline: none;
+            font-size: 14px;
+
+        }
+
+        .forms-filter input:focus,
+        .forms-filter select:focus {
+            border-color: var(--orange);
+        }
+
+
+        /* =================================
+           FORMS GRID
+        ================================= */
+
+        .forms-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 20px;
+
+        }
+
+
+        /* =================================
+           FORM CARD
+        ================================= */
+
+        .form-card {
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            padding: 24px;
+
+            box-shadow: var(--shadow);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+        .form-card:hover {
+
+            transform: translateY(-3px);
+
+        }
+
+
+        .form-icon {
+
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            background: #FFF1E1;
+
+            border-radius: 12px;
+
+            font-size: 23px;
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .form-category {
+
+            display: inline-block;
+
+            color: var(--orange);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-card h3 {
+
+            font-size: 19px;
+
+            line-height: 1.4;
+
+            margin-bottom: 9px;
+
+            color: var(--black);
+
+        }
+
+
+        .form-card p {
+
+            color: var(--gray);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            min-height: 42px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* =================================
+           BUTTONS
+        ================================= */
+
+        .form-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+        }
+
+        .form-actions .btn {
+
+            flex: 1;
+
+            text-align: center;
+
+            cursor: pointer;
+
+        }
+
+        .btn-dark {
+
+            background: var(--black);
+
+            color: var(--white);
+
+        }
+
+        .btn-dark:hover {
+
+            background: #252529;
+
+        }
+
+        .btn-outline {
+
+            background: var(--white);
+
+            color: var(--black);
+
+            border: 1px solid var(--border);
+
+        }
+
+        .btn-outline:hover {
+
+            border-color: var(--orange);
+
+            color: var(--orange);
+
+        }
+
+
+        /* =================================
+           EMPTY STATE
+        ================================= */
+
+        .forms-empty {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+        }
+
+        .forms-empty h2 {
+
+            margin-bottom: 8px;
+
+            color: var(--black);
+
+        }
+
+        .forms-empty p {
+
+            color: var(--gray);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            .forms-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .page-hero {
+
+                padding: 50px 0;
+
+            }
+
+            .forms-section {
+
+                padding: 45px 0 65px;
+
+            }
+
+            .forms-filter {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .forms-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        /* =================================
+           PRINT
+        ================================= */
+
+        @media print {
+
+            .site-header,
+            .page-hero,
+            .forms-filter,
+            .site-footer {
+
+                display: none !important;
+
+            }
+
+            .forms-section {
+
+                padding: 0;
+
+            }
+
+            .forms-grid {
+
+                grid-template-columns: 1fr 1fr;
+
+            }
+
+            .form-actions {
+
+                display: none;
+
+            }
+
+            .form-card {
+
+                box-shadow: none;
+
+                break-inside: avoid;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     HEADER
+================================= -->
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-mark">
+                JE
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    Jangira E Mitra
+                </strong>
+
+                <span>
+                    Phalodi • Rajasthan
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <nav class="desktop-nav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="services.html">
+                Services
+            </a>
+
+            <a href="documents.html">
+                Documents
+            </a>
+
+            <a href="forms.html"
+               class="active">
+                Forms
+            </a>
+
+            <a href="links.html">
+                Online Services
+            </a>
+
+            <a href="downloads.html">
+                Downloads
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open Menu">
+
+            ☰
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="mobile-menu"
+        id="mobileMenu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="services.html">
+            Services
+        </a>
+
+        <a href="documents.html">
+            Documents
+        </a>
+
+        <a href="forms.html">
+            Forms
+        </a>
+
+        <a href="links.html">
+            Online Services
+        </a>
+
+        <a href="downloads.html">
+            Downloads
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =================================
+     HERO
+================================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <span class="section-label">
+            OFFLINE FORMS
+        </span>
+
+        <h1>
+            आवेदन <span>फॉर्म</span>
+        </h1>
+
+        <p>
+            उपलब्ध आवेदन फॉर्म देखें, डाउनलोड करें
+            और जरूरत के अनुसार प्रिंट करें।
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     FORMS
+================================= -->
+
+<main class="forms-section">
+
+    <div class="container">
+
+
+        <!-- FILTER -->
+
+        <div class="forms-filter">
+
+            <input
+                type="search"
+                id="formSearch"
+                placeholder="Form खोजें..."
+                autocomplete="off"
+            >
+
+
+            <select id="formCategory">
+
+                <option value="">
+                    सभी Categories
+                </option>
+
+                <option value="Certificates">
+                    Certificates
+                </option>
+
+                <option value="Pension">
+                    Pension
+                </option>
+
+                <option value="Rajasthan Services">
+                    Rajasthan Services
+                </option>
+
+                <option value="Ration Card">
+                    Ration Card
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- FORMS GRID -->
+
+        <div
+            class="forms-grid"
+            id="formsGrid">
+
+            <!-- forms.js यहाँ cards बनाएगा -->
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =================================
+     FOOTER
+================================= -->
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+
+            <div class="footer-brand">
+
+                <div class="brand">
+
+                    <div class="brand-mark">
+                        JE
+                    </div>
+
+                    <div class="brand-text">
+
+                        <strong>
+                            Jangira E Mitra
+                        </strong>
+
+                        <span>
+                            Phalodi • Rajasthan
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p>
+                    FROM RAJASTHAN • PHALODI • HINDALGOAL PANCHAYAT
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="services.html">
+                    Services
+                </a>
+
+                <a href="documents.html">
+                    Documents
+                </a>
+
+                <a href="forms.html">
+                    Forms
+                </a>
+
+                <a href="links.html">
+                    Online Services
+                </a>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <h3>
+                    Resources
+                </h3>
+
+                <a href="downloads.html">
+                    Downloads
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+                <a href="documents.html">
+                    Checklists
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Jangira E Mitra. All rights reserved.
+            </span>
+
+            <span>
+                Independent e-Mitra / cyber cafe service center.
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =================================
+     JAVASCRIPT
+================================= -->
+
+<script src="js/app.js"></script>
+
+<script src="js/forms.js"></script>
+
+
+</body>
+
+</html>
