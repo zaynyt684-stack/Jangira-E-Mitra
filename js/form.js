@@ -1,3 +1,9 @@
+/* =========================================
+   JANGIRA E MITRA
+   FORMS MASTER DATA
+========================================= */
+
+
 const formsData = [
 
     {
@@ -199,9 +205,11 @@ function renderForms(formArray) {
     const formsGrid =
         document.getElementById("formsGrid");
 
+
     if (!formsGrid) {
         return;
     }
+
 
     formsGrid.innerHTML = "";
 
@@ -209,15 +217,19 @@ function renderForms(formArray) {
     if (formArray.length === 0) {
 
         formsGrid.innerHTML = `
+
             <div class="forms-empty">
 
-                <h2>कोई Form नहीं मिला</h2>
+                <h2>
+                    कोई Form नहीं मिला
+                </h2>
 
                 <p>
                     Search बदलकर दोबारा कोशिश करें।
                 </p>
 
             </div>
+
         `;
 
         return;
@@ -229,6 +241,7 @@ function renderForms(formArray) {
         const card =
             document.createElement("article");
 
+
         card.className = "form-card";
 
 
@@ -238,40 +251,50 @@ function renderForms(formArray) {
                 📄
             </div>
 
+
             <span class="form-category">
                 ${escapeFormHTML(form.category)}
             </span>
+
 
             <h3>
                 ${escapeFormHTML(form.name)}
             </h3>
 
+
             <p>
                 ${escapeFormHTML(form.description)}
             </p>
 
+
             <div class="form-actions">
+
 
                 <a
                     href="${escapeFormHTML(form.file)}"
                     class="btn btn-dark"
                     target="_blank"
-                    rel="noopener noreferrer"
-                >
+                    rel="noopener noreferrer">
+
                     View Form
+
                 </a>
+
 
                 <a
                     href="${escapeFormHTML(form.file)}"
                     class="btn btn-outline"
-                    download
-                >
+                    download>
+
                     Download
+
                 </a>
+
 
             </div>
 
         `;
+
 
         formsGrid.appendChild(card);
 
@@ -281,13 +304,14 @@ function renderForms(formArray) {
 
 
 /* =========================================
-   FILTER FORMS
+   SEARCH + CATEGORY
 ========================================= */
 
 function filterForms() {
 
     const searchInput =
         document.getElementById("formSearch");
+
 
     const categorySelect =
         document.getElementById("formCategory");
@@ -309,6 +333,7 @@ function filterForms() {
 
     const filtered =
         formsData.filter(function (form) {
+
 
             const searchableText = [
 
@@ -353,6 +378,9 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+
+        /* Show all forms initially */
+
         renderForms(formsData);
 
 
@@ -360,25 +388,87 @@ document.addEventListener(
             document.getElementById("formSearch");
 
 
+        const searchButton =
+            document.getElementById("formSearchBtn");
+
+
         const categorySelect =
             document.getElementById("formCategory");
 
 
-        if (searchInput) {
+        /* =================================
+           SEARCH BUTTON
+        ================================= */
 
-            searchInput.addEventListener(
-                "input",
-                filterForms
+        if (searchButton) {
+
+            searchButton.addEventListener(
+                "click",
+                function () {
+
+                    filterForms();
+
+                }
             );
 
         }
 
 
+        /* =================================
+           ENTER KEY
+        ================================= */
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (event.key === "Enter") {
+
+                        event.preventDefault();
+
+                        filterForms();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =================================
+           LIVE SEARCH
+        ================================= */
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "input",
+                function () {
+
+                    filterForms();
+
+                }
+            );
+
+        }
+
+
+        /* =================================
+           CATEGORY
+        ================================= */
+
         if (categorySelect) {
 
             categorySelect.addEventListener(
                 "change",
-                filterForms
+                function () {
+
+                    filterForms();
+
+                }
             );
 
         }
