@@ -815,3 +815,36 @@ function searchServices(query) {
     );
 
 }
+
+];
+
+function getServiceById(id) {
+    return services.find(function (service) {
+        return service.id === id;
+    });
+}
+
+function searchServices(query) {
+
+    const searchQuery =
+        String(query).toLowerCase().trim();
+
+    if (!searchQuery) {
+        return services;
+    }
+
+    return services.filter(function (service) {
+
+        const searchableText = [
+            service.name,
+            service.englishName,
+            service.category,
+            ...(service.keywords || [])
+        ]
+            .join(" ")
+            .toLowerCase();
+
+        return searchableText.includes(searchQuery);
+
+    });
+}
