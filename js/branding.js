@@ -16,3 +16,11 @@ const applyBranding = (data = {}) => {
 };
 
 onSnapshot(doc(db, 'settings', 'site'), snap => applyBranding(snap.exists() ? snap.data() : {}), () => {});
+
+// Home-only awareness hub. Loaded here so the existing home HTML/data stays untouched.
+if (document.body?.classList.contains('home-page')) {
+  const script = document.createElement('script');
+  script.src = 'home-awareness.js?v=20260830';
+  script.defer = true;
+  document.head.appendChild(script);
+}
