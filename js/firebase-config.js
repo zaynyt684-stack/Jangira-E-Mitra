@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app-check.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFkTebmxTpNnInrvYX-ffuUzQgUbRQlGw",
@@ -13,7 +14,15 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+
+// Firebase App Check with reCAPTCHA Enterprise.
+// This key is configured in Firebase Console for the Jangira E-Mitra web app.
+const appCheck = initializeAppCheck(firebaseApp, {
+  provider: new ReCaptchaEnterpriseProvider("6LefS6AtAAAAAFbdzxKgum06yZpiiY34cZmFAD_3"),
+  isTokenAutoRefreshEnabled: true
+});
+
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-export { firebaseApp, auth, db };
+export { firebaseApp, auth, db, appCheck };
