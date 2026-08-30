@@ -2,7 +2,9 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
-      return request.auth != null && request.auth.token.email == 'zaynyt684@gmail.com';
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email.lower() == 'zaynyt684@gmail.com';
     }
 
     match /forms/{id} {
@@ -28,6 +30,43 @@ service cloud.firestore {
     match /settings/{id} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+    }
+    match /articles/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /guides/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /alerts/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /notices/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /gallery/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /downloads/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /footer/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /seo/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
   }
 }
