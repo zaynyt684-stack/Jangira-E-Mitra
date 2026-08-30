@@ -1,0 +1,44 @@
+/* Jangira E-Mitra Advanced UI Layer
+   Kept separate so existing site CSS/data remains untouched. */
+:root{--je-orange:#ff8a00;--je-black:#111114}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+::selection{background:var(--je-orange);color:var(--je-black)}
+.site-header{transition:background .35s ease,box-shadow .35s ease,backdrop-filter .35s ease}
+.site-header:hover{background:rgba(17,17,20,.98);box-shadow:0 8px 35px rgba(0,0,0,.16)}
+.brand-mark{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease}
+.brand:hover .brand-mark{transform:rotate(-7deg) scale(1.06);box-shadow:0 0 0 8px rgba(255,138,0,.08),0 12px 30px rgba(255,138,0,.16)}
+.desktop-nav a{position:relative;transition:color .25s ease,transform .25s ease}
+.desktop-nav a::after{content:"";position:absolute;left:50%;right:50%;bottom:-9px;height:2px;border-radius:99px;background:var(--je-orange);transition:left .3s ease,right .3s ease}
+.desktop-nav a:hover,.desktop-nav a.active{transform:translateY(-1px)}
+.desktop-nav a:hover::after,.desktop-nav a.active::after{left:0;right:0}
+.hero{isolation:isolate;background:radial-gradient(circle at 75% 20%,rgba(255,138,0,.18),transparent 28%),var(--je-black)}
+.hero::before{animation:jeOrb 10s ease-in-out infinite}
+.hero::after{animation:jeOrb 13s ease-in-out infinite reverse}
+.hero-content{animation:jeHero .8s cubic-bezier(.16,1,.3,1)}
+.hero-badge{animation:jeBadge 3s ease-in-out infinite}
+.hero-search{transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease}
+.hero-search:focus-within{transform:translateY(-5px) scale(1.01);box-shadow:0 24px 70px rgba(255,138,0,.14)}
+.hero-search button,.btn{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease,filter .3s ease}
+.hero-search button:hover,.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 35px rgba(255,138,0,.22)}
+.info-card,.service-card,.step{will-change:transform;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease,border-color .3s ease}
+.info-card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(0,0,0,.12);border-color:rgba(255,138,0,.35)}
+.info-icon{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.info-card:hover .info-icon{transform:rotate(-7deg) scale(1.1)}
+.service-card{transform:translateZ(0)}
+.service-card::before{content:"";position:absolute;inset:-2px;background:linear-gradient(115deg,transparent 35%,rgba(255,138,0,.18),transparent 65%);transform:translateX(-125%);transition:transform .7s ease;pointer-events:none}
+.service-card:hover::before{transform:translateX(125%)}
+.service-card:hover{transform:translateY(-10px) scale(1.015);border-color:rgba(255,138,0,.42);box-shadow:0 24px 60px rgba(0,0,0,.13)}
+.service-icon{transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease}
+.service-card:hover .service-icon{transform:rotate(-6deg) scale(1.1);box-shadow:0 12px 28px rgba(0,0,0,.18)}
+.card-link{transition:transform .25s ease,letter-spacing .25s ease}.service-card:hover .card-link{transform:translateX(4px);letter-spacing:.2px}
+.step:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.cta-box{position:relative;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,.14)}
+.cta-box::before{content:"";position:absolute;width:320px;height:320px;right:-130px;top:-190px;border-radius:50%;border:1px solid rgba(255,138,0,.18);animation:jeOrb 9s ease-in-out infinite;pointer-events:none}
+.cta-box>*{position:relative;z-index:1}
+.footer-links a{transition:transform .25s ease,color .25s ease}.footer-links a:hover{transform:translateX(4px)}
+@keyframes jeHero{from{opacity:0;transform:translateY(26px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes jeOrb{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(18px,24px) scale(1.08)}}
+@keyframes jeBadge{0%,100%{box-shadow:0 0 0 0 rgba(255,138,0,0)}50%{box-shadow:0 0 0 8px rgba(255,138,0,.055)}}
+@media(max-width:760px){.desktop-nav a::after{display:none}.site-header{backdrop-filter:blur(16px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
