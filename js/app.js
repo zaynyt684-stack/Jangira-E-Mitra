@@ -1,3 +1,4 @@
+import "./site-upgrade.js";
 import { db } from "./firebase-config.js";
 import { doc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
